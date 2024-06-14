@@ -10,6 +10,11 @@ Welcome to QuantumNotes's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+   :maxdepth: 2
+   :caption: decoAD:
+
+   decoAD <decoAD/index>
 
 
 Indices and tables
