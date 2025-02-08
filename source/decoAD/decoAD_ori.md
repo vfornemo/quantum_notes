@@ -4,7 +4,7 @@
 
 ## Decomposition
 
-### Atomic
+### Atomic energy decomposition
 
 The energy of molecule can be decomposed into atomic contributions in the following way. First, the mean-field (MF) functional shared between HF and KS-DFT can be written as:
 
@@ -17,13 +17,13 @@ where $\bold{D}_\sigma$ is the one-electron reduced density matrix (RDM1) for sp
 The Hatree-Fock energy can be written as:
 
 $$
-E_{\text{HF}} = \sum_K^{N_{\text{atom}}}E_K(\bold{D}, \delta_K)=\sum_K^{N_{\text{atom}}}E_{\text{elec}, K}(\bold{D}, \delta_K)+E_{\text{nuc}, K}
+E_{\text{HF}} = \sum_K^{N_{\text{atom}}}E_K(\bold{D}, \boldsymbol{\delta}_K)=\sum_K^{N_{\text{atom}}}E_{\text{elec}, K}(\bold{D}, \boldsymbol{\delta}_K)+E_{\text{nuc}, K}
 $$
 
-where the $\delta_K$ is the atom-specific RDM1s (atom-RDM1s):
+where the $\boldsymbol{\delta}_K$ is the atom-specific RDM1s (atom-RDM1s):
 
 $$
-\delta_K = \sum_{\sigma=\alpha,\beta}\delta_{K,\sigma} = \sum_{\sigma=\alpha,\beta}\sum_{i}^{N_\sigma}\bold{d}_{i,\sigma}\bold{p}_{i,\sigma}^K
+\boldsymbol{\delta}_K = \sum_{\sigma=\alpha,\beta}\boldsymbol{\delta}_{K,\sigma} = \sum_{\sigma=\alpha,\beta}\sum_{i}^{N_\sigma}\bold{d}_{i,\sigma}\bold{p}_{i,\sigma}^K
 $$
 
 where the $\bold{d}_{i,\sigma}$ is the orbital-specific RDM1s (orb-RDM1s), $\bold{d}_{i,\sigma} = \bold{C}_{i,\sigma}\bold{C}_{i,\sigma}^\dagger$, and the $\bold{p}_{i,\sigma}^K$ is the population weight of an underlying $i$-th MO on a given atom $K$.
@@ -31,7 +31,7 @@ where the $\bold{d}_{i,\sigma}$ is the orbital-specific RDM1s (orb-RDM1s), $\bol
 The nuclear contributions to the energy of atom $K$ are:
 
 $$
-E_{\text{nuc}, K} = Z_K\sum_{K< L}^{N_{\text{atom}}}\frac{Z_L}{|\bold{r}_K-\bold{r}_L|}
+E_{\text{nuc}, K} = \frac{Z_K}{2}\sum_{K\neq L}^{N_{\text{atom}}}\frac{Z_L}{|\bold{r}_K-\bold{r}_L|}
 $$
 
 where $Z_L$ and $\bold{r}_L$ denote the nuclear charge and position of atom $L$, respectively.
@@ -39,7 +39,7 @@ where $Z_L$ and $\bold{r}_L$ denote the nuclear charge and position of atom $L$,
 and the electronic contributions are:
 
 $$
-E_{\text{elec}, K} = \text{Tr}[\bold{T}_\text{kin}\delta_K] + \frac{1}{2}(\text{Tr}[\bold{V}_\text{K}\bold{D}] + \text{Tr}[\bold{V}_\text{nuc}\delta_K]) + \frac{1}{2}\sum_\sigma\text{Tr}[\bold{G}_{\text{HF},\sigma}(\bold{D})\delta_{K,\sigma}]
+E_{\text{elec}, K} = \text{Tr}[\bold{T}_\text{kin}\boldsymbol{\delta}_K] + \frac{1}{2}(\text{Tr}[\bold{V}_\text{K}\bold{D}] + \text{Tr}[\bold{V}_\text{nuc}\boldsymbol{\delta}_K]) + \frac{1}{2}\sum_\sigma\text{Tr}[\bold{G}_{\text{HF},\sigma}(\bold{D})\boldsymbol{\delta}_{K,\sigma}]
 $$
 
 The population weight of an underlying $i$-th MO on a given atom $K$ can be calculated using Mulliken population analysis:
@@ -51,6 +51,26 @@ $$
 where the $\bold{S}$ is the overlap matrix of the basis functions.
 
 Also, we can use IAO population analysis to calculate the population weight.
+
+### Atomic dipole moment decomposition
+
+The dipole moment can be written as:
+
+$$
+\boldsymbol{\mu} = \sum_K^{N_{\text{atom}}}\boldsymbol{\mu}_{\text{elec},K}(\boldsymbol{\delta}_K)+\boldsymbol{\mu}_{\text{nuc},K}
+$$
+
+the electronic contributions to the dipole moment of atom $K$ are:
+
+$$
+\boldsymbol{\mu}_{\text{elec},K} = -\sum_r\text{Tr}[\boldsymbol{\mu}_r\boldsymbol{\delta}_K]
+$$
+
+and the nuclear contributions are:
+
+$$
+\boldsymbol{\mu}_{\text{nuc},K} = Z_K\bold{r}_K
+$$
 
 ## Molecular Orbitals
 
@@ -249,3 +269,33 @@ $$
 $$
 
 $Z_A$ is the nuclear charge of atom $A$ and $\rho$ represents the polarized AOs (IAO).
+
+## Auto Differentiation
+
+### Dipole Moment
+
+The dipole moment of a molecule can be calculated as the first derivative of the energy with respect to an external electric field:
+
+$$
+\boldsymbol{\mu} = \frac{\partial E}{\partial \bold{F}}
+$$
+
+where $\boldsymbol{\mu}$ is the dipole moment, $E$ is the energy, and $\bold{F}$ is the external electric field.
+
+### Polarizability
+
+The polarizability of a molecule can be calculated as the second derivative of the energy with respect to an external electric field:
+
+$$
+\bold{\alpha} = \frac{\partial^2 E}{\partial \bold{F}^2}
+$$
+
+where $\bold{\alpha}$ is the polarizability, $E$ is the energy, and $\bold{F}$ is the external electric field. Also, it can be calculated as the first derivative of the dipole moment with respect to an external electric field:
+
+$$
+\bold{\alpha} = \frac{\partial \boldsymbol{\mu}}{\partial \bold{F}}
+$$
+
+$$
+\bold{\alpha} = \frac{\partial^2 E}{\partial \bold{F}^2} = \frac{\partial \boldsymbol{\mu}}{\partial \bold{F}}
+$$

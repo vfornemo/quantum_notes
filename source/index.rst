@@ -16,6 +16,12 @@ Welcome to QuantumNotes's documentation!
 
    decoAD <decoAD/index>
 
+.. toctree::
+   :maxdepth: 2
+   :caption: CC:
+
+   CC <CC/index>
+
 
 Indices and tables
 ==================
