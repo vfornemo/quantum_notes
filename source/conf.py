@@ -30,9 +30,11 @@ release = 'v1.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['nbsphinx',
+extensions = [
               'myst_parser',
-            # 'recommonmark', 
+              'nbsphinx',
+              # 'myst_nb',
+              # 'recommonmark', 
               'sphinx_markdown_tables',
               'sphinx.ext.autodoc',
               'sphinx.ext.doctest',
@@ -42,6 +44,7 @@ extensions = ['nbsphinx',
               'sphinx.ext.imgmath',
               'sphinx.ext.ifconfig',
               'sphinx.ext.viewcode',
+              # 'sphinx.ext.mathjax',
               'sphinx.ext.githubpages']
 
 # Add any paths that contain templates here, relative to this directory.
@@ -78,4 +81,9 @@ source_suffix = {
     '.rst': 'restructuredtext',
     '.txt': 'markdown',
     '.md': 'markdown',
+    '.ipynb': 'jupyter_notebook',
 }
+
+# mathjax3_config = {
+#     'tex': {'tags': 'ams', 'useLabelIds': True},
+# }
