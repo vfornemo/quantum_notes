@@ -6,3 +6,4 @@ CC
 
    Notation.ipynb
    CC.ipynb
+   CC_RICD.ipynb

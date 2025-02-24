@@ -22,7 +22,6 @@ Welcome to QuantumNotes's documentation!
 
    CC <CC/index>
 
-
 Indices and tables
 ==================
 
